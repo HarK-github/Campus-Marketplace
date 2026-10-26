@@ -1,26 +1,6 @@
 // src/db/initDb.js
-import pkg from 'pg';
-const { Pool } = pkg;
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
 import mongoose from 'mongoose';
-import { STCategory } from '../models/st_category.model.js'; // Add this import
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Create a connection pool for administrative tasks (connecting to default 'postgres' db)
-const adminPool = new Pool({
-  host: process.env.PG_HOST || 'localhost',
-  port: process.env.PG_PORT || 5432,
-  user: process.env.PG_USER || 'postgres',
-  password: process.env.PG_PASSWORD || 'postgres',
-  database: 'postgres', // Connect to default postgres database
-});
-
-// Connection pool for your application database
-let appPool;
+import { STCategory } from '../models/st_category.model.js';
 
 /**
  * Seed categories in MongoDB
@@ -261,11 +241,11 @@ const initDatabase = async () => {
       console.log('✅ Categories already exist, skipping seeding');
     }
     
-    return appPool;
+    return true;
     
   } catch (error) {
     console.error('❌ Database initialization failed:', error);
     process.exit(1);
   }
 };
-export { initDatabase, appPool };
+export { initDatabase };

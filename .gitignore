@@ -213,3 +213,9 @@ backend/src/uploads/
 # Docker volumes
 mongodb_data/
 .env*
+
+# Local architecture references
+Architecture*.md
+Final_Architecture.md
+changes.md
+
